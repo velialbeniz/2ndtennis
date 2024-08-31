@@ -3,6 +3,7 @@ import { HomeLayout, Landing, About, Products, SingleProduct, Cart, Orders, Regi
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { loader as landingLoader } from "./pages/Landing";
+import { loader as productsLoader } from "./pages/Products";
 // import { loader as singleProductLoader } from "./pages/SingleProduct";
 import {ErrorElement} from "./components/";
 
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
 			{
 				path: "products",
 				element: <Products />,
+                loader: productsLoader,
 			},
 			{
 				path: "products/:id",
