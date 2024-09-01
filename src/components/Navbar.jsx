@@ -6,20 +6,20 @@ import { NavLinks } from "./"
 import { Header } from "."
 
 const themes = {
-	autumn: "autumn",
+	cyberpunk: "cyberpunk",
 	forest: "forest",
 };
 
 const getThemeFromLocalStorage = () => {
-	return localStorage.getItem("theme") || themes.autumn;
+	return localStorage.getItem("theme") || themes.cyberpunk;
 };
 
 const Navbar = () => {
 	const [theme, setTheme] = useState(getThemeFromLocalStorage());
 
 	const handleTheme = () => {
-		const { autumn, forest } = themes;
-		const newTheme = theme === autumn ? forest : autumn;
+		const { cyberpunk, forest } = themes;
+		const newTheme = theme === cyberpunk ? forest : cyberpunk;
 		setTheme(newTheme);
 	};
 

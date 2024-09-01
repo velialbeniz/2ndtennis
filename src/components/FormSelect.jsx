@@ -8,6 +8,7 @@ const FormSelect = ({ label, name, list, defaultValue, size }) => {
 				name={name}
 				className={`select select-bordered ${size}`}
 				defaultValue={defaultValue}>
+                <option value={defaultValue}>{label}</option>
 				{list.map((item) => (
 					<option
 						key={item}

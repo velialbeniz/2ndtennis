@@ -9,7 +9,7 @@ const ProductsGrid = () => {
 				const { title, description, price, image_url } = product;
 				return (
 					<Link
-                    className='card w-full  shadow-md hover:shadow-2xl transition duration-300 '
+                    className='card w-full bg-neutral  shadow-md hover:shadow-2xl transition duration-300 '
 						key={product.id}
 						to={`/products/${product.id}`}>
 						<figure className="px-4 pt-4">
@@ -20,8 +20,8 @@ const ProductsGrid = () => {
 							/>
 						</figure>
 						<div className="card-body items-center text-center">
-							<h2 className="card-title capitalize tracking-wider">{title}</h2>
-							<p className="text-secondary">{price}&#8378;</p>
+							<h2 className="card-title capitalize text-secondary tracking-wider">{title}</h2>
+							<p className="text-primary">{price}&#8378;</p>
 						</div>
 					</Link>
 				);

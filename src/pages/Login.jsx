@@ -12,37 +12,46 @@ const Login = () => {
 				/>
 				<div className="card w-96 bg-base-100 shadow-xl">
 					<div className="card-body">
-						<h2 className="card-title">Login</h2>
+						<h2 className="card-title">Giriş yap</h2>
 						<Form
 							method="post"
 							className="flex flex-col gap-4">
 							<FormInput
 								type="email"
 								name="email"
-								label="Email"
+								label="e-posta"
 								defaultValue="test@test.com"
+                                size="input-md"
 							/>
 							<FormInput
 								type="password"
 								name="password"
-								label="Password"
+								label="şifre"
 								defaultValue="secret"
+                                size="input-md"
 							/>
 
-							<SubmitBtn text="Login" />
+                            <SubmitBtn text="Giriş yap" />
 
 							<button
 								type="button"
-								className="btn btn-secondary btn-block">
-								guest user
+								className="btn btn-secondary btn-block capitalize">
+								misafir kullanıcı
 							</button>
 
 							<p className="text-center">
-								Don't have an account?
+								Hesabın yok mu?
 								<Link
 									className="ml-2 link link-hover link-primary capitalize"
 									to="/register">
-									Register
+									Kayıt ol
+								</Link>
+							</p>
+							<p className="text-center">
+								<Link
+									className="ml-2 link link-hover link-primary capitalize"
+									to="/">
+									Anasayfa
 								</Link>
 							</p>
 						</Form>
