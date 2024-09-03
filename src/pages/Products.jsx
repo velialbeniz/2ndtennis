@@ -22,16 +22,13 @@ export const loader = async ({ request }) => {
 	if (search) {
 		query = query.ilike("title", `%${search}%`);
 	}
-	if (category) {
-		if (category !== "kategori seç") {
-			query = query.eq("category", category);
-		}
+    if (category && category !== "kategori seç") {
+        query = query.eq("category", category);
 	}
-	if (brand) {
-		if (brand !== "marka seç") {
-			query = query.eq("brand", brand);
-		}
-	}
+    if (brand && brand !== "marka seç") {
+        query = query.eq("brand", brand);
+    }
+	
 	if (shipping === "on") {
 		query = query.eq("shipping", true);
 	}
@@ -51,14 +48,14 @@ export const loader = async ({ request }) => {
 	// 	}
 	// }
 
-	if (price) {
+	if (price && price !== "0") {
 		const maxPrice = Number(price);
 		if (!isNaN(maxPrice)) {
 			query = query.gte("price", 0).lte("price", maxPrice);
 		}
 	}
 
-	if (order) {
+    if (order && order !== "sırala") {
 		if (order === "a-z") {
 			query = query.order("title", { ascending: true });
 		} else if (order === "z-a") {

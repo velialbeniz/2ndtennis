@@ -16,8 +16,16 @@ const Filters = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const searchParams = new URLSearchParams(formData).toString();
-        navigate(`/products?${searchParams}`);
+        const searchParams = new URLSearchParams()
+
+        console.log("formdata", Object.fromEntries(formData.entries()));
+
+        for (const [key, value] of formData.entries()) {
+			if (value && value !== "kategori seç" && value !== "marka seç") {
+				searchParams.append(key, value);
+			}
+		}
+        navigate(`/products?${searchParams.toString()}`);
     }
 
 	return (
