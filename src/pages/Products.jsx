@@ -2,11 +2,6 @@ import { Filters, PaginationContainer, ProductsContainer } from "../components";
 import { apiClient } from "../utils";
 import supabase from "../supabaseClient";
 
-// export const loader = async ({ request }) => {
-// 	const { data } = await supabase.from("products").select();
-
-// 	return { products: data };
-// };
 
 export const loader = async ({ request }) => {
 	const url = new URL(request.url);
@@ -16,19 +11,25 @@ export const loader = async ({ request }) => {
 	const order = url.searchParams.get("order") || "";
 	const price = url.searchParams.get("price") || "";
 	const shipping = url.searchParams.get("shipping") || "";
+	const page = parseInt(url.searchParams.get("page") || "1");
+	const limit = parseInt(url.searchParams.get("limit") || "10");
+
+	// sayfa numarasına bağlı offset oluşturma
+
+	const offset = (page - 1) * limit;
 
 	let query = supabase.from("products").select();
 
 	if (search) {
 		query = query.ilike("title", `%${search}%`);
 	}
-    if (category && category !== "kategori seç") {
-        query = query.eq("category", category);
+	if (category && category !== "kategori seç") {
+		query = query.eq("category", category);
 	}
-    if (brand && brand !== "marka seç") {
-        query = query.eq("brand", brand);
-    }
-	
+	if (brand && brand !== "marka seç") {
+		query = query.eq("brand", brand);
+	}
+
 	if (shipping === "on") {
 		query = query.eq("shipping", true);
 	}
@@ -55,7 +56,7 @@ export const loader = async ({ request }) => {
 		}
 	}
 
-    if (order && order !== "sırala") {
+	if (order && order !== "sırala") {
 		if (order === "a-z") {
 			query = query.order("title", { ascending: true });
 		} else if (order === "z-a") {
@@ -67,6 +68,9 @@ export const loader = async ({ request }) => {
 		}
 	}
 
+	// pagination
+	query = query.range(offset, offset + limit - 1);
+
 	const { data, error } = await query;
 
 	if (error) {
@@ -74,7 +78,16 @@ export const loader = async ({ request }) => {
 		return { products: [] };
 	}
 
-	return { products: data };
+	const { count: totalCount } = await supabase.from("products").select("*", { count: "exact" })
+
+	return {
+		products: data,
+		pagination: {
+			currentPage: page,
+			totalPages: Math.ceil(totalCount / limit),
+			totalItems: totalCount,
+		},
+	};
 };
 
 const Products = () => {
